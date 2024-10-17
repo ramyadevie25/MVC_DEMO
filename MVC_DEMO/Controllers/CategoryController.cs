@@ -18,11 +18,23 @@ namespace MVC_DEMO.Controllers
         {
             _db = db;
         }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
             List<Category> catlist = _db.Categories.ToList();
             return View(catlist);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Category obj)
+        {
+            _db.Categories.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Category");
         }
     }
 }
